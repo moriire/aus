@@ -1,0 +1,7 @@
+<!-- index.html -->
+{% load unicorn %}
+{% csrf_token %}
+
+<!-- Access nested data from the dictionary in the template context and set on the `name` kwarg -->
+{% unicorn 'hello-world' name='hello' %}
+{% unicorn 'states'  %}

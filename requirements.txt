@@ -1,0 +1,12 @@
+asgiref==3.7.2
+beautifulsoup4==4.12.2
+cachetools==4.2.4
+decorator==4.4.2
+Django==4.2.7
+django-unicorn==0.57.1
+django-utils-six==2.0
+orjson==3.9.10
+shortuuid==1.0.11
+six==1.16.0
+soupsieve==2.5
+sqlparse==0.4.4
