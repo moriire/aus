@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
+{% load unicorn %}
 {% block content %}
+
+{% unicorn 'search' %}
     <!-- ======= Intro Single ======= -->
     <section class="intro-single">
         <div class="container">
@@ -28,6 +31,8 @@
           </div>
         </div>
       </section><!-- End Intro Single-->
+{% csrf_token %}
+      {% unicorn 'search' %}
   
       <!-- ======= Property Single ======= -->
       <section class="property-single nav-arrow-b">
@@ -275,5 +280,5 @@
           </div>
         </div>
       </section><!-- End Property Single-->
-
+{% unicorn 'search' %}
 {% endblock %}
