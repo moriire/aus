@@ -12,6 +12,16 @@ from django.template.loader import render_to_string
 from .forms import SignUpForm
 from .tokens import account_activation_token
 from user.models import User
+from django_unicorn.components import UnicornView
+
+class IndexView(UnicornView):
+    template_name = "index.html"
+
+class AboutView(UnicornView):
+    template_name = "about.html"
+
+class ContactView(UnicornView):
+    template_name = "contact.html"
 
 def index(request):
     return render(request, 'index.html')
