@@ -1,5 +1,5 @@
-{% load unicorn %}
 {% load static %}
+{% load unicorn %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,8 +34,9 @@
 {% csrf_token %}
   <!-- ======= Property Search Section ======= -->
   <div class="click-closed"></div>
+ {% unicorn "search" %}
   <!--/ Form Search Star /-->
-  <div class="box-collapse">
+<div class="box-collapse">
     <div class="title-box-d">
       <h3 class="title-d">Search Property</h3>
     </div>
@@ -126,7 +127,7 @@
     </div>
   </div><!-- End Property Search Section -->>
 
-  <!-- ======= Header/Navbar ======= -->
+ <!-- ======= Header/Navbar ======= -->
   <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
     <div class="container">
       <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarDefault" aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
@@ -154,15 +155,27 @@
           <li class="nav-item">
             <a class="nav-link {% if url_name == 'agents' %} active {% endif %}" href="/agents/">Agents</a>
           </li>
-          <!--li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
+	{% if not user.is_authenticated %}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Login</a>
             <div class="dropdown-menu">
-              <a class="dropdown-item " href="property-single.html">Property Single</a>
-              <a class="dropdown-item " href="blog-single.html">Blog Single</a>
-              <a class="dropdown-item " href="agents-grid.html">Agents Grid</a>
+              <a class="dropdown-item " href="{% url 'signup' %}">Sign up</a>
+              <a class="dropdown-item " href="blog-single.html">Login</a>
+              <a class="dropdown-item " href="{% url 'password_reset' %}">Forgot Password</a>
               <a class="dropdown-item " href="agent-single.html">Agent Single</a>
             </div>
-          </li-->
+          </li>
+	{% else %}
+	 <li class="nav-item dropdown" >
+<a  class="nav-link dropdown-toggle"  data-bs-toggle="dropdown"  aria-haspopup="true" aria-expanded="false" href="#" role="button" >{{ user.username }}</a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item " href="{% url 'password_change' %}">Change Password</a>
+              <a class="dropdown-item " href="/profile/" >Profile</a>
+              <a class="dropdown-item " href="age">aaas</a>
+              <a class="dropdown-item " href="{% url 'logout' %}">Logout</a>
+            </div>
+          </li>
+	{% endif %}
           <li class="nav-item">
             <a class="nav-link  {% if url_name == 'contact' %} active {% endif %}" href="/contact/">Contact</a>
           </li>
@@ -175,26 +188,15 @@
         <i class="bi bi-search"></i>
       </button>
 
-      <div class="dropdown" style="margin-left: 10px;">
-        <a class="dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="bi bi-person-badge text-success" style="font-size: 35px; margin-left: 5px; color:#2eca6a;"></i><span>Login</span></a>
-        <div class="dropdown-menu">
-          <a class="dropdown-item " href="property-single.html">Property Single</a>
-          <a class="dropdown-item " href="blog-single.html">Blog Single</a>
-          <a class="dropdown-item " href="agents-grid.html">Agents Grid</a>
-          <a class="dropdown-item " href="agent-single.html">Agent Single</a>
-        </div>
-      </div>
-     
-
     </div>
   </nav><!-- End Header/Navbar -->
  
-  <main id="main">
-  {% block content %}
+  <main id="main"> 
+{% block content %}
   {% endblock %}
   </main><!-- End #main -->
 
- 
+ {% unicorn 'search' %}
   <footer>
     <div class="container">
       <div class="row">
@@ -224,6 +226,7 @@
                 <a href="#">
                   <i class="bi bi-facebook" aria-hidden="true"></i>
                 </a>
+ {% unicorn 'search' %}
               </li>
               <li class="list-inline-item">
                 <a href="#">
