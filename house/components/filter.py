@@ -10,7 +10,7 @@ class FilterView(UnicornView):
     page_obj = ""
 
 
-    items_per_page = 10
+    items_per_page = 1
     page_index = 1
     paginator = None
     page = None
@@ -26,13 +26,21 @@ class FilterView(UnicornView):
 
     def mount(self):
         self.houses = House.objects.all().select_related("agent")
-        #self.pq
+        self.paginator = Paginator(self.houses, self.items_per_page)
+
+        self.page = self.paginator.page(self.page_index)
+        self.page_range = self.paginator.get_elided_page_range(number=self.page_index, on_each_side=3, on_ends=2)
 
     def filtered(self):
+        self.paginator = Paginator(self.houses, self.items_per_page)
         if self.selected == "":
             self.houses = House.objects.all().select_related("agent")
         else:
             self.houses = House.objects.select_related("agent").filter(goal=self.selected)
+
+        self.page = self.paginator.page(self.page_index)
+        self.page_range = self.paginator.get_elided_page_range(number=self.page_index, on_each_side=3, on_ends=2)
+
 
     def pq(self, request):
         paginator = Paginator(self.houses, 1)
@@ -41,7 +49,7 @@ class FilterView(UnicornView):
 
     def houses_list(self):
         self.page = ''
-        movies_search_flag = False
+        houses_search_flag = False
         paginator = Paginator(self.houses, self.items_per_page)
         self.paginator = paginator
         self.page = self.paginator.page(self.page_index)
@@ -51,19 +59,16 @@ class FilterView(UnicornView):
     def go_to_page(self, page):
         print("go_to_page")
         self.page_index = page
-        if self.movies_search_flag == True:
-            self.movies_search()
-        else:
-            self.movies_list()
+   
 
-    def movies_search_button(self):
+    def houses_search_button(self):
         self.page_index = 1
-        self.movies_search_flag = True
-        self.movies_search()
+        self.houses_search_flag = True
+        self.houses_search()
 
-    def movies_search(self):
+    def houses_search(self):
         self.page = ''
-        qs = Movies.objects.filter(speciality=self.speciality, area=self.area)
+        qs = House.objects.filter(goal=self.selected)
         paginator = Paginator(qs, self.items_per_page)
         self.paginator = paginator
         try:

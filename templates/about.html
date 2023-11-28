@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
-
+<div unicorn:view>
     <!-- ======= Intro Single ======= -->
-    <section class="intro-single" unicorn:view>
+    <section class="intro-single">
       <div class="container">
         <div class="row">
           <div class="col-md-12 col-lg-8">
@@ -27,7 +27,7 @@
     </section><!-- End Intro Single-->
 
     <!-- ======= About Section ======= -->
-    <section class="section-about">
+    <section class="section-about" unicorn:view>
       <div class="container">
         <div class="row">
           <div class="col-sm-12 position-relative">
@@ -273,5 +273,5 @@
         </div>
       </div>
     </section><!-- End About Section-->
-
+</div>
 {% endblock %}

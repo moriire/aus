@@ -8,23 +8,27 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from .tokens import account_activation_token
 from django.template.loader import render_to_string
-
 from .forms import SignUpForm
 from .tokens import account_activation_token
 from user.models import User
 from django_unicorn.components import UnicornView
+from house.models import House
+from agent.models import Agent
 
 class IndexView(UnicornView):
     template_name = "index.html"
+    properties:House = []
+    agents:Agent = []
+
+    def mount(self):
+        self.properties = House.objects.filter(goal="rent")[:6]
+        self.agents = Agent.objects.all()[:6]
 
 class AboutView(UnicornView):
     template_name = "about.html"
 
 class ContactView(UnicornView):
     template_name = "contact.html"
-
-def index(request):
-    return render(request, 'index.html')
 
 def activation_sent_view(request):
     return render(request, 'activation_sent.html')
@@ -75,3 +79,4 @@ def signup_view(request):
     else:
         form = SignUpForm()
     return render(request, 'registration/register.html', {'form': form})
+
