@@ -1,8 +1,6 @@
 {% extends 'base.html' %}
-{% load unicorn %}
 {% load static %}
 
-{% csrf_token %}
 {% block content %}
     <!-- ======= Intro Single ======= -->
     <section class="intro-single">
@@ -31,9 +29,127 @@
     </section><!-- End Intro Single-->
    
     <!-- ======= Property Grid ======= -->
-    <section class="property-grid grid">
-     {% unicorn 'filter' %}
-      
+    <section class="property-grid grid" unicorn:view>
+     
+
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="grid-option">
+              <form>
+                <select unicorn:change="filtered()" class="custom-select" unicorn:model="selected">
+                  <option value=""  selected>All</option>
+                  <option value="shortlet">Short let</option>
+                  <option value="rent">For Rent</option>
+                  <option value="sale">For Sale</option>
+                </select>
+              </form>
+            </div>
+          </div>
+	{% if page.object_list %}
+          {% for house in page.object_list %}
+          <div class="col-md-4">
+            <div class="card-box-a card-shadow">
+              <div class="img-box-a">
+		      <img src="{% static 'assets/img/property-1.jpg' %}" alt="" class="img-a img-fluid">
+              </div>
+              <div class="card-overlay">
+                <div class="card-overlay-a-content">
+                  <div class="card-header-a">
+                    <h2 class="card-title-a">
+                      <a href="#">204 Mount
+                        <br /> Olive Road Two</a>
+                    </h2>
+                  </div>
+                  <div class="card-body-a">
+                    <div class="price-box d-flex">
+                      <span class="price-a">rent | $ 12.000</span>
+                    </div>
+                    <a href="property-single.html" class="link-a">Click here to view
+                      <span class="bi bi-chevron-right"></span>
+                    </a>
+                  </div>
+                  <div class="card-footer-a">
+                    <ul class="card-info d-flex justify-content-around">
+                      <li>
+                        <h4 class="card-info-title">Area</h4>
+                        <span>340m
+                          <sup>2</sup>
+                        </span>
+                      </li>
+                      <li>
+                        <h4 class="card-info-title">Beds</h4>
+                        <span>2</span>
+                      </li>
+                      <li>
+                        <h4 class="card-info-title">Baths</h4>
+                        <span>4</span>
+                      </li>
+                      <li>
+                        <h4 class="card-info-title">Garages</h4>
+                        <span>1</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+	
+          {% endfor %}
+         {% else %}
+         <div>
+         notjing to show
+         </div>
+       {% endif %}
+          
+        </div>
+	{% if page.paginator.num_pages > 1 %}
+        <div class="row">
+          <div class="col-sm-12">
+            <nav class="pagination-a">
+              <ul class="pagination justify-content-end">
+		{% if page.has_previous %}
+		<li class="page-item active">
+                  <a class="page-link" href="#"  unicorn:click="">
+                    <span class="bi bi-chevron-left">
+                  </a>
+                </li>
+		{% else %}
+		
+		<li class="page-item active">
+                  <a class="page-link" role="button" unicorn:click="go_to_page({{ page.previous_page_number })">
+                    <span class="bi bi-chevron-left">
+                  </a>
+                </li>
+		{% endif %}
+               {% for i in page_range|default_if_none:page.paginator.get_elided_page_range %} 
+                          {% if page.number == i %}
+               
+
+		<li class="page-item active" >
+                  <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                </li>
+		{% else %}
+                <li class="page-item" >
+                  <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                </li>
+		{% endif %}
+               {% endfor %}
+
+		{% if page.has_next %}
+                <li class="page-item next">
+                  <a class="page-link"  role="button"  unicorn:click="go_to_page({{ page.next_page_number })">
+                    <span class="bi bi-chevron-right"></span>
+                  </a>
+                </li>
+		{% endif %}
+              </ul>
+            </nav>
+          </div>
+        </div>
+       {% endif %}
+      </div>
     </section><!-- End Property Grid Single-->
 
 {% endblock %}
