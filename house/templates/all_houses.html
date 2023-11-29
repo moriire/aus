@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block content %}
+<div unicorn:view>
     <!-- ======= Intro Single ======= -->
     <section class="intro-single">
       <div class="container">
@@ -29,29 +30,32 @@
     </section><!-- End Intro Single-->
    
     <!-- ======= Property Grid ======= -->
-    <section class="property-grid grid" unicorn:view>
-     
+    <section class="property-grid grid" >
 
+    </section><!-- End Property Grid Single-->
+    <!-- ======= Property Grid ======= -->
+    <section class="property-grid grid" >
       <div class="container">
         <div class="row">
           <div class="col-sm-12">
             <div class="grid-option">
               <form>
-                <select unicorn:change="filtered()" class="custom-select" unicorn:model="selected">
-                  <option value=""  selected>All</option>
-                  <option value="shortlet">Short let</option>
-                  <option value="rent">For Rent</option>
-                  <option value="sale">For Sale</option>
+                <select class="custom-select">
+                  <option selected>All</option>
+                  <option value="1">New to Old</option>
+                  <option value="2">For Rent</option>
+                  <option value="3">For Sale</option>
                 </select>
               </form>
             </div>
           </div>
-	{% if page.object_list %}
-          {% for house in page.object_list %}
+         
+          {% for house in page_obj %}
+         
           <div class="col-md-4">
             <div class="card-box-a card-shadow">
               <div class="img-box-a">
-		      <img src="{% static 'assets/img/property-1.jpg' %}" alt="" class="img-a img-fluid">
+                <img src="{% static 'assets/img/property-8.jpg' %}" alt="" class="img-a img-fluid">
               </div>
               <div class="card-overlay">
                 <div class="card-overlay-a-content">
@@ -95,61 +99,42 @@
               </div>
             </div>
           </div>
-	
           {% endfor %}
-         {% else %}
-         <div>
-         notjing to show
-         </div>
-       {% endif %}
-          
         </div>
-	{% if page.paginator.num_pages > 1 %}
         <div class="row">
           <div class="col-sm-12">
             <nav class="pagination-a">
               <ul class="pagination justify-content-end">
-		{% if page.has_previous %}
-		<li class="page-item active">
-                  <a class="page-link" href="#"  unicorn:click="">
-                    <span class="bi bi-chevron-left">
+                <li class="page-item disabled">
+                  <a class="page-link" href="?page={{ page_obj.next_page_number }}" tabindex="-1">
+                    <span class="bi bi-chevron-left"></span>
                   </a>
                 </li>
-		{% else %}
-		
-		<li class="page-item active">
-                  <a class="page-link" role="button" unicorn:click="go_to_page({{ page.previous_page_number })">
-                    <span class="bi bi-chevron-left">
-                  </a>
-                </li>
-		{% endif %}
-               {% for i in page_range|default_if_none:page.paginator.get_elided_page_range %} 
-                          {% if page.number == i %}
-               
 
-		<li class="page-item active" >
-                  <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                {% for p in paginator.page_range %}
+                {% if p == page_obj.number  %}
+                <li class="page-item active">
+                  <a class="page-link" href="#">{{ p }}</a>
                 </li>
-		{% else %}
-                <li class="page-item" >
-                  <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                {% else %}
+                <li class="page-item">
+                  <a class="page-link" href="#">{{ p }}</a>
                 </li>
-		{% endif %}
-               {% endfor %}
-
-		{% if page.has_next %}
+                {% endif %}
+                {% endfor %}
+                
+                {{ page.next_page_number }}
                 <li class="page-item next">
-                  <a class="page-link"  role="button"  unicorn:click="go_to_page({{ page.next_page_number })">
+                  <a class="page-link" href="?page={{ page.next_page_number }}">
                     <span class="bi bi-chevron-right"></span>
                   </a>
                 </li>
-		{% endif %}
               </ul>
             </nav>
           </div>
         </div>
-       {% endif %}
       </div>
     </section><!-- End Property Grid Single-->
+  </div>
 
 {% endblock %}

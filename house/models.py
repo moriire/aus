@@ -17,5 +17,8 @@ class House(models.Model):
     model = models.CharField(max_length=30, choices=Model.choices)
     goal = models.CharField(max_length=10, choices=GOAL.choices)
 
+    class Meta:
+        ordering = ['id']
+        
     def __str__(self) -> str:
         return self.model

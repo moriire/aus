@@ -11,7 +11,7 @@ from django.template.loader import render_to_string
 from .forms import SignUpForm
 from .tokens import account_activation_token
 from user.models import User
-from django_unicorn.components import UnicornView
+from django_unicorn.components import LocationUpdate,  HashUpdate, UnicornView
 from house.models import House
 from agent.models import Agent
 
@@ -19,7 +19,13 @@ class IndexView(UnicornView):
     template_name = "index.html"
     properties:House = []
     agents:Agent = []
+    search = {'keyword': '', 'city': '', 'prop_type': '', 'bedrooms': 1, 'garages': 2, 'price': 0}
 
+    def for_search(self):
+        return  LocationUpdate(redirect('/login/'))# redirect('login')
+    def make(self):
+        return HashUpdate(f"#hi")
+    
     def mount(self):
         self.properties = House.objects.filter(goal="rent")[:6]
         self.agents = Agent.objects.all()[:6]
