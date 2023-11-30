@@ -1,24 +1,24 @@
-<div class="box-collapse">
+
+  <div class="box-collapse">
     <div class="title-box-d">
       <h3 class="title-d">Search Property</h3>
-    </div>{{ mode }}
-{{ bedroom }}
-{{ name }}
-{{ city }}
+    </div>
+    {{ keywords  }}
     <span class="close-box-collapse right-boxed bi bi-x"></span>
     <div class="box-collapse-wrap form">
-      <form class="form-a">
+      <div class="form-a">
+    
         <div class="row">
           <div class="col-md-12 mb-2">
             <div class="form-group">
               <label class="pb-2" for="Type">Keyword</label>
-              <input type="text" class="form-control form-control-lg form-control-a" placeholder="Keyword">
+              <input type="text" class="form-control form-control-lg form-control-a" placeholder="Keyword" unicorn:model="keywords" id="keywords">
             </div>
           </div>
-          <div class="col-md-6 mb-2">
+          <!--div class="col-md-6 mb-2">
             <div class="form-group mt-3">
               <label class="pb-2" for="Type">Type</label>
-              <select class="form-control form-select form-control-a" id="Type" unicorn:model="mode">
+              <select class="form-control form-select form-control-a" id="Type" >
                 <option>All Type</option>
                 <option>For Rent</option>
                 <option>For Sale</option>
@@ -29,7 +29,7 @@
           <div class="col-md-6 mb-2">
             <div class="form-group mt-3">
               <label class="pb-2" for="city">City</label>
-              <select class="form-control form-select form-control-a" id="city" unicorn:model="city">
+              <select class="form-control form-select form-control-a" id="city" unicorn:model="search_data.city">
                 <option>All City</option>
                 <option>Alabama</option>
                 <option>Arizona</option>
@@ -41,7 +41,7 @@
           <div class="col-md-6 mb-2">
             <div class="form-group mt-3">
               <label class="pb-2" for="bedrooms">Bedrooms</label>
-              <select class="form-control form-select form-control-a" id="bedrooms" unicorn:model="bedroom">
+              <select class="form-control form-select form-control-a" id="bedrooms" unicorn:model="search_data.bedroom">
                 <option>Any</option>
                 <option>01</option>
                 <option>02</option>
@@ -52,7 +52,7 @@
           <div class="col-md-6 mb-2">
             <div class="form-group mt-3">
               <label class="pb-2" for="garages">Garages</label>
-              <select class="form-control form-select form-control-a" id="garages">
+              <select class="form-control form-select form-control-a" id="garages" unicorn:model="search_data.garages">
                 <option>Any</option>
                 <option>01</option>
                 <option>02</option>
@@ -83,11 +83,11 @@
                 <option>$200,000</option>
               </select>
             </div>
-          </div>
+          </div-->
           <div class="col-md-12">
     <button type="submit" class="btn btn-b">Search Property</button>
           </div>
         </div>
-      </form>
+      </div>
     </div>
   </div>

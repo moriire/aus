@@ -19,12 +19,6 @@ class IndexView(UnicornView):
     template_name = "index.html"
     properties:House = []
     agents:Agent = []
-    search = {'keyword': '', 'city': '', 'prop_type': '', 'bedrooms': 1, 'garages': 2, 'price': 0}
-
-    def for_search(self):
-        return  LocationUpdate(redirect('/login/'))# redirect('login')
-    def make(self):
-        return HashUpdate(f"#hi")
     
     def mount(self):
         self.properties = House.objects.filter(goal="rent")[:6]

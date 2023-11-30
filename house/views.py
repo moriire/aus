@@ -10,7 +10,7 @@ class PropertiesView(UnicornView):
     houses: House = House.objects.none()
     page_obj = []
 
-
+    
     items_per_page = 1
     page_index = 1
     paginator = None
